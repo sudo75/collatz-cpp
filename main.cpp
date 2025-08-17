@@ -5,28 +5,35 @@ int doIteration(int value);
 
 int main() {
 
-    std::cout << "******** Collatz-cpp ********\n";
+    while (0 < 1) {
+        std::cout << "******** Collatz-cpp ********\n";
 
-    std::cout << "Choose a range to calculate for." << '\n';
+        std::cout << "Choose a range to calculate for." << '\n';
 
-    std::cout << "Start value:" << '\n';
-    int start_value;
-    do {
-        std::cin >> start_value;
-    } while (!(start_value > 1));
-    
-
-    std::cout << "End value:" << '\n';
-    int end_value;
-    do {
-        std::cin >> end_value;
-    } while (!(end_value > 1));
-
-    for (int i = start_value; i <= end_value; i++) {
-        int iterations = numberOfIterations(i);
+        std::cout << "Start value:" << '\n';
+        int start_value;
+        do {
+            std::cin >> start_value;
+        } while (!(start_value > 1));
         
-        std::cout << "** Input value: " << i << " , Iterations: " << iterations << " **" << '\n';
+
+        std::cout << "End value:" << '\n';
+        int end_value;
+        do {
+            std::cin >> end_value;
+        } while (!(end_value > 1));
+
+        for (int i = start_value; i <= end_value; i++) {
+            int iterations = numberOfIterations(i);
+            
+            std::cout << "** Input value: " << i << ", Iterations: " << iterations << " **" << '\n';
+        }
+
+        for (int i = 0; i < 5; i++) {
+            std::cout << '\n';
+        }
     }
+    
     
 
     return 0;
