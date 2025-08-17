@@ -2,9 +2,9 @@
 #include <string>
 #include <cmath>
 
-int numberOfIterations(int start);
-long long doIteration(long long value);
-void showProgress(int start, int end, int current);
+int numberOfIterations(unsigned int start);
+unsigned long long doIteration(unsigned long long value);
+void showProgress(unsigned int start, unsigned int end, unsigned int current);
 
 int main() {
 
@@ -14,23 +14,23 @@ int main() {
         std::cout << "Choose a range to calculate for." << '\n';
 
         std::cout << "Start value:" << '\n';
-        int start_value;
+        unsigned int start_value;
         do {
             std::cin >> start_value;
         } while (!(start_value > 1));
         
 
         std::cout << "End value:" << '\n';
-        int end_value;
+        unsigned int end_value;
         do {
             std::cin >> end_value;
         } while (!(end_value > 1));
 
 
-        int longest_sequence;
-        int most_iterations = 0;
+        unsigned int longest_sequence;
+        unsigned int most_iterations = 0;
 
-        for (int i = start_value; i <= end_value; i++) {
+        for (unsigned int i = start_value; i <= end_value; i++) {
             int iterations = numberOfIterations(i);
 
             if (iterations > most_iterations) {
@@ -54,7 +54,7 @@ int main() {
     return 0;
 }
 
-long long doIteration(long long value) {
+unsigned long long doIteration(unsigned long long value) {
 
     if (value % 2 == 0) {
         return value / 2;
@@ -63,9 +63,9 @@ long long doIteration(long long value) {
     }
 }
 
-int numberOfIterations(int value_) {
+int numberOfIterations(unsigned int value_) {
 
-    long long value = static_cast<long long>(value_);
+    unsigned long long value = static_cast<unsigned long long>(value_);
 
     int iterations = 0;
     while (value != 1) {
@@ -76,7 +76,7 @@ int numberOfIterations(int value_) {
     return iterations;
 }
 
-void showProgress(int start, int end, int current) {
+void showProgress(unsigned int start, unsigned int end, unsigned int current) {
     float progress_decimal = float(current - start + 1) / float(end - start + 1);
 
     int bar_length = 20;
@@ -93,7 +93,7 @@ void showProgress(int start, int end, int current) {
     }
     output.append("] ");
 
-    int progress_percentage = int(progress_decimal * 100);
+    int progress_percentage = std::floor(int(progress_decimal * 100));
     output.append(std::to_string(progress_percentage) + "%");
 
     //std::cout << output << '\n';
