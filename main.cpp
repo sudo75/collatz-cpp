@@ -1,7 +1,10 @@
 #include <iostream>
+#include <string>
+#include <cmath>
 
 int numberOfIterations(int start);
-int doIteration(int value);
+long long doIteration(long long value);
+void showProgress(int start, int end, int current);
 
 int main() {
 
@@ -23,23 +26,36 @@ int main() {
             std::cin >> end_value;
         } while (!(end_value > 1));
 
+
+        int longest_sequence;
+        int most_iterations = 0;
+
         for (int i = start_value; i <= end_value; i++) {
             int iterations = numberOfIterations(i);
-            
-            std::cout << "** Input value: " << i << ", Iterations: " << iterations << " **" << '\n';
+
+            if (iterations > most_iterations) {
+                most_iterations = iterations;
+                longest_sequence = i;
+            }
+
+            if (i == start_value || i % 100000 == 0 || i == end_value) {
+                showProgress(start_value, end_value, i);
+            }
+            //std::cout << "** Input value: " << i << ", Iterations: " << iterations << " **" << '\n';
         }
+
+        std::cout << "\n\n" << "**** Longest sequence: " << most_iterations << " iterations, Input value: " << longest_sequence << ", Range: " << start_value << " - " << end_value << " ****";
 
         for (int i = 0; i < 5; i++) {
             std::cout << '\n';
         }
     }
-    
-    
 
     return 0;
 }
 
-int doIteration(int value) {
+long long doIteration(long long value) {
+
     if (value % 2 == 0) {
         return value / 2;
     } else {
@@ -47,7 +63,9 @@ int doIteration(int value) {
     }
 }
 
-int numberOfIterations(int value) {
+int numberOfIterations(int value_) {
+
+    long long value = static_cast<long long>(value_);
 
     int iterations = 0;
     while (value != 1) {
@@ -56,4 +74,28 @@ int numberOfIterations(int value) {
     }
 
     return iterations;
+}
+
+void showProgress(int start, int end, int current) {
+    float progress_decimal = float(current - start + 1) / float(end - start + 1);
+
+    int bar_length = 20;
+
+    int bars_filled = int(std::floor(progress_decimal * (float)bar_length));
+
+    std::string output = "[";
+    for (int i = 0; i < bar_length; i++) {
+        if (i < bars_filled) {
+            output.append("=");
+        } else {
+            output.append(" ");
+        }
+    }
+    output.append("] ");
+
+    int progress_percentage = int(progress_decimal * 100);
+    output.append(std::to_string(progress_percentage) + "%");
+
+    //std::cout << output << '\n';
+    std::cout << "\r" << output << std::flush;
 }
